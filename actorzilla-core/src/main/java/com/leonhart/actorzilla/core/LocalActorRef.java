@@ -2,6 +2,8 @@ package com.leonhart.actorzilla.core;
 
 import com.leonhart.actorzilla.core.dispatch.MessageQueue;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Created by david on 11.03.2017.
  */
@@ -18,6 +20,13 @@ public class LocalActorRef extends ActorRef {
     @Override
     public void send(final Object message, final ActorRef sender) {
         getShell().send(message, sender);
+    }
+
+    @Override
+    public CompletableFuture<Object> ask(final Object message, final ActorRef sender) {
+        final CompletableFuture<Object> promise = new CompletableFuture<>();
+        getShell().send(message, new PromiseActorRef(promise));
+        return promise;
     }
 
 

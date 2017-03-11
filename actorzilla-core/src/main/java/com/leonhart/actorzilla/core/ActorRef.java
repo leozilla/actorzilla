@@ -1,9 +1,12 @@
 package com.leonhart.actorzilla.core;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Created by david on 11.03.2017.
  */
 public abstract class ActorRef {
+    public static final ActorRef NO_SENDER = null; // TODO
 
     private final ActorShell shell;
 
@@ -12,6 +15,12 @@ public abstract class ActorRef {
     }
 
     public abstract void send(final Object message, final ActorRef sender);
+
+    public CompletableFuture<Object> ask(final Object message) {
+        return ask(message, ActorRef.NO_SENDER);
+    }
+
+    public abstract CompletableFuture<Object> ask(final Object message, final ActorRef sender);
 
     ActorShell getShell() {
         return this.shell;

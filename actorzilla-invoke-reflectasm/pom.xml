@@ -21,11 +21,12 @@
             <groupId>com.leonhart</groupId>
             <artifactId>actorzilla-core</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.leonhart</groupId>
             <artifactId>actorzilla-testing</artifactId>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
