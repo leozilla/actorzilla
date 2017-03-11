@@ -7,8 +7,8 @@ public class LocalActorRef extends ActorRef {
     private final Dispatcher dispatcher;
     private final Actor actor;
 
-    public LocalActorRef(final Dispatcher dispatcher, final Actor actor) {
-        super(new ActorShell(new UnboundedArrayListMailbox(actor), actor.toString()));
+    public LocalActorRef(final Dispatcher dispatcher, final Actor actor, final Invoker invoker) {
+        super(new ActorShell(new UnboundedArrayListMailbox(actor, invoker), actor.toString()));
         this.dispatcher = dispatcher;
         this.actor = actor;
 
@@ -17,7 +17,7 @@ public class LocalActorRef extends ActorRef {
 
     @Override
     public void send(final Object message, final ActorRef sender) {
-        this.dispatcher.dispatch(new MessageEnvelope(sender, message), getShell());
+        this.dispatcher.dispatch(new MessageEnvelope(new MessageContextImpl(sender), message), getShell());
     }
 
 

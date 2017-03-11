@@ -13,14 +13,14 @@ import java.util.Optional;
  * Created by david on 11.03.2017.
  */
 public class ActorMetadata {
-    private final Map<Object, InvokableMethod> methodCache = new HashMap<>(8);
+    private final Map<Object, InvocableMethod> methodCache = new HashMap<>(8);
     private final Actor actor;
 
     public ActorMetadata(final Actor actor) {
         this.actor = actor;
     }
 
-    public Optional<InvokableMethod> findMethod(final Object message) {
+    public Optional<InvocableMethod> findMethod(final Object message) {
         return Optional.ofNullable(this.methodCache.computeIfAbsent(message, msg -> {
             final Class<? extends Actor> actorClazz = this.actor.getClass();
             final Method met = Arrays.stream(actorClazz.getMethods())

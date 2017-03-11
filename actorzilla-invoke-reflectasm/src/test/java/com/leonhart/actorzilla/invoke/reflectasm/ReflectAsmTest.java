@@ -1,6 +1,9 @@
 package com.leonhart.actorzilla.invoke.reflectasm;
 
-import com.leonhart.actorzilla.core.*;
+import com.leonhart.actorzilla.core.Actor;
+import com.leonhart.actorzilla.core.ActorRef;
+import com.leonhart.actorzilla.core.ActorSystem;
+import com.leonhart.actorzilla.core.MessageContext;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,7 +25,7 @@ public class ReflectAsmTest extends Actor {
 
         @EventHandler
         public void handle(final MessageContext ctx, final HelloRequest request) {
-            getSender().send(new HelloResponse(), getSelf());
+            ctx.getSender().send(new HelloResponse(), getSelf());
         }
 
         @Override
@@ -41,10 +44,10 @@ public class ReflectAsmTest extends Actor {
     }
 
     @Test
-    public void test() {
+    public void invokeViaReflectAsm() {
         final ActorSystem system = new ActorSystem();
-        final ActorRef actorRef = system.createActor(HelloActor.class, ReflectiveActorDecorator::new);
-        final ActorRef self = system.createActor(ReflectAsmTest.class, ReflectiveActorDecorator::new);
+        final ActorRef actorRef = system.createActor(HelloActor.class, actor -> new ReflectAsmInvoker(actor));
+        final ActorRef self = system.createActor(ReflectAsmTest.class, actor -> new ReflectAsmInvoker(actor));
 
         actorRef.send(new HelloRequest(), self);
 

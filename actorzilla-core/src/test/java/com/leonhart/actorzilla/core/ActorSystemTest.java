@@ -23,7 +23,7 @@ public class ActorSystemTest extends Actor {
         @Override
         public void receive(final MessageContext ctx, final Object message) {
             if (message instanceof HelloRequest) {
-                getSender().send(new HelloResponse(), getSelf());
+                ctx.getSender().send(new HelloResponse(), getSelf());
             }
         }
     }

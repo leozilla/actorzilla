@@ -4,20 +4,23 @@ package com.leonhart.actorzilla.core;
  * Created by david on 11.03.2017.
  */
 public final class MessageEnvelope {
-    private final ActorRef sender;
     private final Object message;
+    private final MessageContext ctx;
 
-    public MessageEnvelope(final ActorRef sender, final Object message) {
-
-        this.sender = sender;
+    public MessageEnvelope(final MessageContext ctx, final Object message) {
+        this.ctx = ctx;
         this.message = message;
     }
 
     public ActorRef getSender() {
-        return this.sender;
+        return this.ctx.getSender();
     }
 
     public Object getMessage() {
         return this.message;
+    }
+
+    public MessageContext getContext() {
+        return this.ctx;
     }
 }

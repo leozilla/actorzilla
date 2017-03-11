@@ -8,9 +8,11 @@ import java.util.ArrayList;
 public class UnboundedArrayListMailbox implements Mailbox {
     private final ArrayList<MessageEnvelope> messages = new ArrayList<>();
     private final Actor actor;
+    private final Invoker invoker;
 
-    public UnboundedArrayListMailbox(final Actor actor) {
+    public UnboundedArrayListMailbox(final Actor actor, final Invoker invoker) {
         this.actor = actor;
+        this.invoker = invoker;
     }
 
     @Override
@@ -22,7 +24,7 @@ public class UnboundedArrayListMailbox implements Mailbox {
     @Override
     public void run() {
         for (final MessageEnvelope envelope : this.messages) {
-            this.actor.receiveMessage(null, envelope); // TODO
+            this.invoker.invoke(this.actor, envelope.getContext(), envelope.getMessage());
         }
     }
 }

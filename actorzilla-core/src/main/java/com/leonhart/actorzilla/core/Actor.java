@@ -5,27 +5,18 @@ package com.leonhart.actorzilla.core;
  */
 public abstract class Actor {
 
-    private ActorRef sender;
     private ActorRef self;
 
     protected ActorRef getSelf() {
         return this.self;
     }
 
-    protected ActorRef getSender() {
-        return this.sender;
-    }
 
-    void receiveMessage(final MessageContext ctx, final MessageEnvelope envelope) {
-        setSender(envelope.getSender());
-        receive(ctx, envelope.getMessage());
+    void receiveMessage(final MessageContext ctx, final Object message) {
+        receive(ctx, message);
     }
 
     protected abstract void receive(MessageContext ctx, Object message);
-
-    void setSender(final ActorRef sender) {
-        this.sender = sender;
-    }
 
     void setSelf(final ActorRef self) {
         this.self = self;
