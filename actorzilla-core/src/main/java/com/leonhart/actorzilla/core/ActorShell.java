@@ -4,12 +4,15 @@ package com.leonhart.actorzilla.core;
  * Created by david on 11.03.2017.
  */
 class ActorShell {
+    private final Dispatcher dispatcher;
     private final Mailbox mailbox;
-    private final String name;
+    private final Actor actor;
 
-    ActorShell(final Mailbox mailbox, final String name) {
+    ActorShell(final Dispatcher dispatcher, final Mailbox mailbox, final Actor actor) {
+        this.dispatcher = dispatcher;
         this.mailbox = mailbox;
-        this.name = name;
+        this.actor = actor;
+        this.mailbox.setActor(actor);
     }
 
     public Mailbox getMailbox() {
@@ -18,6 +21,11 @@ class ActorShell {
 
     @Override
     public String toString() {
-        return this.name;
+        return this.actor.toString();
+    }
+
+    public void send(final Object message, final ActorRef sender) {
+        final MessageEnvelope envelope = new MessageEnvelope(new MessageContextImpl(sender), message);
+        this.dispatcher.dispatch(envelope, this);
     }
 }

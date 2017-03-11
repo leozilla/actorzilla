@@ -11,7 +11,6 @@ public abstract class Actor {
         return this.self;
     }
 
-
     void receiveMessage(final MessageContext ctx, final Object message) {
         receive(ctx, message);
     }

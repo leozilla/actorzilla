@@ -1,18 +1,14 @@
 package com.leonhart.actorzilla.core;
 
-import java.util.function.Function;
-
 public class ActorSystem {
-    private final Dispatcher defaultDispatcher = new DirectDispatcher(new DirectExecutorService());
 
     public <T extends Actor> ActorRef createActor(final Class<T> actorClass) {
-        final T actor = tryCreateActorOrThrow(actorClass);
-        return new LocalActorRef(this.defaultDispatcher, actor, Invoker.DEFAULT);
+        return createActor(actorClass, ActorProps.DEFAULT.get());
     }
 
-    public <T extends Actor> ActorRef createActor(final Class<T> actorClass, final Function<T, Invoker> invokerFactory) {
+    public <T extends Actor> ActorRef createActor(final Class<T> actorClass, final ActorProps props) {
         final T actor = tryCreateActorOrThrow(actorClass);
-        return new LocalActorRef(this.defaultDispatcher, actor, invokerFactory.apply(actor));
+        return new LocalActorRef(props.dispatcher, props.invoker, props.createMailbox(), actor);
     }
 
     private <T extends Actor> T tryCreateActorOrThrow(final Class<T> actorClass) {

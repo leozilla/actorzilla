@@ -1,15 +1,15 @@
 package com.leonhart.actorzilla.core;
 
+import com.leonhart.actorzilla.core.dispatch.MessageQueue;
+
 /**
  * Created by david on 11.03.2017.
  */
 public class LocalActorRef extends ActorRef {
-    private final Dispatcher dispatcher;
     private final Actor actor;
 
-    public LocalActorRef(final Dispatcher dispatcher, final Actor actor, final Invoker invoker) {
-        super(new ActorShell(new UnboundedArrayListMailbox(actor, invoker), actor.toString()));
-        this.dispatcher = dispatcher;
+    public LocalActorRef(final Dispatcher dispatcher, final Invoker invoker, final MessageQueue messageQueue, final Actor actor) {
+        super(new ActorShell(dispatcher, dispatcher.createMailbox(invoker, messageQueue), actor));
         this.actor = actor;
 
         actor.setSelf(this);
@@ -17,7 +17,7 @@ public class LocalActorRef extends ActorRef {
 
     @Override
     public void send(final Object message, final ActorRef sender) {
-        this.dispatcher.dispatch(new MessageEnvelope(new MessageContextImpl(sender), message), getShell());
+        getShell().send(message, sender);
     }
 
 

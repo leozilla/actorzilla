@@ -12,11 +12,11 @@ import java.util.Optional;
 /**
  * Created by david on 11.03.2017.
  */
-public class ActorMetadata {
+public class ReflectAsmActorMetadata {
     private final Map<Object, InvocableMethod> methodCache = new HashMap<>(8);
     private final Actor actor;
 
-    public ActorMetadata(final Actor actor) {
+    public ReflectAsmActorMetadata(final Actor actor) {
         this.actor = actor;
     }
 
