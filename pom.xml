@@ -16,6 +16,7 @@
         <hamcrest.version>1.3</hamcrest.version>
         <awaitility.version>2.0.0</awaitility.version>
         <slf4j.version>1.7.24</slf4j.version>
+        <guice.version>4.1.0</guice.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -24,6 +25,8 @@
     <modules>
         <module>actorzilla-core</module>
         <module>actorzilla-invoke-reflectasm</module>
+        <module>actorzilla-guice</module>
+        <module>actorzilla-testing</module>
     </modules>
 
     <dependencyManagement>
@@ -38,7 +41,17 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${guice.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>21.0</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>

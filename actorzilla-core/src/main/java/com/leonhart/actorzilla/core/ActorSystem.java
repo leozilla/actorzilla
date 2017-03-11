@@ -11,6 +11,14 @@ public class ActorSystem {
         return new LocalActorRef(props.dispatcher, props.invoker, props.createMailbox(), actor);
     }
 
+    public <T extends Actor> ActorRef createActor(final T actor) {
+        return createActor(actor, ActorProps.DEFAULT.get());
+    }
+
+    public <T extends Actor> ActorRef createActor(final T actor, final ActorProps props) {
+        return new LocalActorRef(props.dispatcher, props.invoker, props.createMailbox(), actor);
+    }
+
     private <T extends Actor> T tryCreateActorOrThrow(final Class<T> actorClass) {
         final T actor;
 
