@@ -1,9 +1,6 @@
 package com.leonhart.actorzilla.invoke.reflectasm;
 
-import com.leonhart.actorzilla.core.ActorProps;
-import com.leonhart.actorzilla.core.ActorRef;
-import com.leonhart.actorzilla.core.ActorSystem;
-import com.leonhart.actorzilla.core.MessageContext;
+import com.leonhart.actorzilla.core.*;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,7 +16,7 @@ public class ReflectAsmTest {
 
     public static class PingActor extends ReflectiveActor {
 
-        @EventHandler
+        @MessageHandler
         public void handle(final MessageContext ctx, final PingRequest request) {
             ctx.getSender().send(new PingResponse(), getSelf());
         }
@@ -29,7 +26,7 @@ public class ReflectAsmTest {
     public static class PongActor extends ReflectiveActor {
         static PingResponse receivedResponse;
 
-        @EventHandler
+        @MessageHandler
         public void handle(final MessageContext ctx, final PingResponse response) {
             this.receivedResponse = response;
         }

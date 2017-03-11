@@ -13,7 +13,7 @@ public abstract class ActorRef {
 
     public abstract void send(final Object message, final ActorRef sender);
 
-    public ActorShell getShell() {
+    ActorShell getShell() {
         return this.shell;
     }
 }

@@ -3,15 +3,16 @@ package com.leonhart.actorzilla.core;
 import com.leonhart.actorzilla.core.dispatch.MessageQueue;
 import com.leonhart.actorzilla.core.dispatch.UnboundedArrayListMessageQueue;
 
+import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 
 /**
  * Created by david on 11.03.2017.
  */
 public class ActorProps {
-    static final Dispatcher defaultDispatcher = new DirectDispatcher(new DirectExecutorService());
+    private static final Dispatcher defaultDispatcher = new DirectDispatcher(Executors.newSingleThreadExecutor());
 
-    public static Supplier<ActorProps> DEFAULT = () -> new ActorProps()
+    static Supplier<ActorProps> DEFAULT = () -> new ActorProps()
             .withDispatcher(defaultDispatcher)
             .withInvoker(Invoker.DEFAULT)
             .withMessageQueue(UnboundedArrayListMessageQueue::new);

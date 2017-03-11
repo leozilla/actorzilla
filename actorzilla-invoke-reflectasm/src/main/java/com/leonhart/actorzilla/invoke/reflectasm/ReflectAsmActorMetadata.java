@@ -2,6 +2,7 @@ package com.leonhart.actorzilla.invoke.reflectasm;
 
 import com.esotericsoftware.reflectasm.MethodAccess;
 import com.leonhart.actorzilla.core.Actor;
+import com.leonhart.actorzilla.core.MessageHandler;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -24,7 +25,7 @@ public class ReflectAsmActorMetadata {
         return Optional.ofNullable(this.methodCache.computeIfAbsent(message, msg -> {
             final Class<? extends Actor> actorClazz = this.actor.getClass();
             final Method met = Arrays.stream(actorClazz.getMethods())
-                    .filter(method -> method.isAnnotationPresent(EventHandler.class))
+                    .filter(method -> method.isAnnotationPresent(MessageHandler.class))
                     .filter(method -> method.getParameterCount() >= 2 && method.getParameterTypes()[1].equals(msg.getClass()))
                     .findFirst()
                     .get(); // TODO
