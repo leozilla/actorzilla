@@ -1,4 +1,7 @@
-package com.leonhart.actorzilla.core;
+package com.leonhart.actorzilla.invoke.reflectasm;
+
+import com.leonhart.actorzilla.core.Actor;
+import com.leonhart.actorzilla.core.MessageContext;
 
 /**
  * Created by david on 11.03.2017.

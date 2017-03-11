@@ -1,4 +1,4 @@
-package com.leonhart.actorzilla.core;
+package com.leonhart.actorzilla.invoke.reflectasm;
 
 /**
  * Created by david on 11.03.2017.

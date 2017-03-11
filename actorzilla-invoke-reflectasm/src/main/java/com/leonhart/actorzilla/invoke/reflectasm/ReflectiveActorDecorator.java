@@ -1,4 +1,7 @@
-package com.leonhart.actorzilla.core;
+package com.leonhart.actorzilla.invoke.reflectasm;
+
+import com.leonhart.actorzilla.core.Actor;
+import com.leonhart.actorzilla.core.MessageContext;
 
 import java.util.Optional;
 
@@ -26,16 +29,6 @@ public class ReflectiveActorDecorator extends Actor {
         } else {
             // TODO
         }
-    }
-
-    @Override
-    void setSelf(final ActorRef self) {
-        this.innerActor.setSelf(self);
-    }
-
-    @Override
-    void setSender(final ActorRef sender) {
-        this.innerActor.setSender(sender);
     }
 
     Actor getInnerActor() {

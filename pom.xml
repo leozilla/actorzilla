@@ -19,7 +19,7 @@
 
     <modules>
         <module>actorzilla-core</module>
-        <module>actorzilla-reflectasm-dispatch</module>
+        <module>actorzilla-invoke-reflectasm</module>
     </modules>
 
     <dependencyManagement>

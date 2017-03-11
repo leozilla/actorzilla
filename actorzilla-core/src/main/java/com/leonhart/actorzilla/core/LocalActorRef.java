@@ -26,7 +26,7 @@ public class LocalActorRef extends ActorRef {
         return this.actor.toString();
     }
 
-    Actor getActor() {
+    protected Actor getActor() {
         return this.actor;
     }
 }

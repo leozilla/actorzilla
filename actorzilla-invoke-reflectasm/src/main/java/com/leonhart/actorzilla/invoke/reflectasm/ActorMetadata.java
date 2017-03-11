@@ -1,6 +1,7 @@
-package com.leonhart.actorzilla.core;
+package com.leonhart.actorzilla.invoke.reflectasm;
 
 import com.esotericsoftware.reflectasm.MethodAccess;
+import com.leonhart.actorzilla.core.Actor;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

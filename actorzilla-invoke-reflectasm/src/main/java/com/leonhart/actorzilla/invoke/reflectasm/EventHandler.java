@@ -1,4 +1,4 @@
-package com.leonhart.actorzilla.core;
+package com.leonhart.actorzilla.invoke.reflectasm;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

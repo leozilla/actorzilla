@@ -22,8 +22,7 @@ public class UnboundedArrayListMailbox implements Mailbox {
     @Override
     public void run() {
         for (final MessageEnvelope envelope : this.messages) {
-            this.actor.setSender(envelope.getSender());
-            this.actor.receive(null, envelope.getMessage());
+            this.actor.receiveMessage(null, envelope); // TODO
         }
     }
 }

@@ -8,15 +8,20 @@ public abstract class Actor {
     private ActorRef sender;
     private ActorRef self;
 
-    ActorRef getSelf() {
+    protected ActorRef getSelf() {
         return this.self;
     }
 
-    ActorRef getSender() {
+    protected ActorRef getSender() {
         return this.sender;
     }
 
-    public abstract void receive(MessageContext ctx, Object message);
+    void receiveMessage(final MessageContext ctx, final MessageEnvelope envelope) {
+        setSender(envelope.getSender());
+        receive(ctx, envelope.getMessage());
+    }
+
+    protected abstract void receive(MessageContext ctx, Object message);
 
     void setSender(final ActorRef sender) {
         this.sender = sender;

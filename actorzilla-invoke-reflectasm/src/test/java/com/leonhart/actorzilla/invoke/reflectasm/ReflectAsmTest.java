@@ -1,5 +1,6 @@
-package com.leonhart.actorzilla.core;
+package com.leonhart.actorzilla.invoke.reflectasm;
 
+import com.leonhart.actorzilla.core.*;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -7,7 +8,7 @@ import static org.hamcrest.Matchers.instanceOf;
 
 public class ReflectAsmTest extends Actor {
 
-    HelloResponse receivedResponse;
+    static HelloResponse receivedResponse;
 
     private static class HelloRequest {
 
@@ -47,9 +48,6 @@ public class ReflectAsmTest extends Actor {
 
         actorRef.send(new HelloRequest(), self);
 
-        final LocalActorRef localRef = (LocalActorRef) self;
-        final ReflectiveActorDecorator reflectiveActor = (ReflectiveActorDecorator) localRef.getActor();
-        final ReflectAsmTest reflectAsmTestActor = (ReflectAsmTest) reflectiveActor.getInnerActor();
-        assertThat(reflectAsmTestActor.receivedResponse, instanceOf(HelloResponse.class));
+        assertThat(receivedResponse, instanceOf(HelloResponse.class));
     }
 }
