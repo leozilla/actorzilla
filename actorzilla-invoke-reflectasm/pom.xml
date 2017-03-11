@@ -20,7 +20,10 @@
         <dependency>
             <groupId>com.leonhart</groupId>
             <artifactId>actorzilla-core</artifactId>
-            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.leonhart</groupId>
+            <artifactId>actorzilla-testing</artifactId>
         </dependency>
 
         <dependency>

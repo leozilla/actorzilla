@@ -40,8 +40,9 @@ public class RequestResponseWithDirectDispatcherAndExecutorTest {
     @Test
     public void requestResponse() {
         final ActorSystem system = new ActorSystem();
-        final ActorRef ping = system.createActor(PingActor.class);
-        final ActorRef pong = system.createActor(PongActor.class);
+        final DirectDispatcher dispatcher = new DirectDispatcher(new DirectExecutorService());
+        final ActorRef ping = system.createActor(PingActor.class, ActorProps.newProps().withDispatcher(dispatcher));
+        final ActorRef pong = system.createActor(PongActor.class, ActorProps.newProps().withDispatcher(dispatcher));
 
         ping.send(new PingRequest(), pong);
 

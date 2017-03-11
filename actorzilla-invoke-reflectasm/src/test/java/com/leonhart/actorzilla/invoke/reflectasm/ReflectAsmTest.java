@@ -1,6 +1,7 @@
 package com.leonhart.actorzilla.invoke.reflectasm;
 
 import com.leonhart.actorzilla.core.*;
+import com.leonhart.actorzilla.testing.DirectExecutorService;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,8 +37,9 @@ public class ReflectAsmTest {
     @Test
     public void invokeViaReflectAsm() {
         final ActorSystem system = new ActorSystem();
-        final ActorRef actorRef = system.createActor(PingActor.class, ActorProps.newProps().withInvoker(ReflectAsmInvoker.INSTANCE));
-        final ActorRef self = system.createActor(PongActor.class, ActorProps.newProps().withInvoker(ReflectAsmInvoker.INSTANCE));
+        final DirectDispatcher dispatcher = new DirectDispatcher(new DirectExecutorService());
+        final ActorRef actorRef = system.createActor(PingActor.class, ActorProps.newProps().withInvoker(ReflectAsmInvoker.INSTANCE).withDispatcher(dispatcher));
+        final ActorRef self = system.createActor(PongActor.class, ActorProps.newProps().withInvoker(ReflectAsmInvoker.INSTANCE).withDispatcher(dispatcher));
 
         actorRef.send(new PingRequest(), self);
 
