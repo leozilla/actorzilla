@@ -23,8 +23,8 @@ public class LocalActorRef extends ActorRef {
     }
 
     @Override
-    public CompletableFuture<Object> ask(final Object message, final ActorRef sender) {
-        final CompletableFuture<Object> promise = new CompletableFuture<>();
+    public CompletableFuture<MessageEnvelope> ask(final Object message, final ActorRef sender) {
+        final CompletableFuture<MessageEnvelope> promise = new CompletableFuture<>();
         getShell().send(message, new PromiseActorRef(promise));
         return promise;
     }

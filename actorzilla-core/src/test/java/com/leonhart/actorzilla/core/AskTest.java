@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.*;
 
+import static com.leonhart.actorzilla.core.ActorProps.newProps;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 
@@ -33,13 +34,13 @@ public class AskTest {
     public void ask_actorsAnswers_completeFuture() throws InterruptedException, ExecutionException, TimeoutException {
         final ActorSystem system = new ActorSystem();
         final Dispatcher singleThreadDispatcher = new DirectDispatcher(Executors.newSingleThreadExecutor());
-        final ActorRef ping = system.createActor(PingActor.class, ActorProps.newProps()
+        final ActorRef ping = system.createActor(PingActor.class, newProps()
                 .withDispatcher(singleThreadDispatcher)
                 .withMessageQueue(new ConcurrentLinkedMessageQueue()));
 
-        final CompletableFuture<Object> future = ping.ask(new PingRequest(), null);
+        final CompletableFuture<MessageEnvelope> future = ping.ask(new PingRequest(), null);
 
-        final Object result = future.get(3, TimeUnit.SECONDS);
-        assertThat(result, instanceOf(PingResponse.class));
+        final MessageEnvelope env = future.get(3, TimeUnit.SECONDS);
+        assertThat(env.getMessage(), instanceOf(PingResponse.class));
     }
 }

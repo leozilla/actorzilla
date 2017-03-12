@@ -16,11 +16,11 @@ public abstract class ActorRef {
 
     public abstract void send(final Object message, final ActorRef sender);
 
-    public CompletableFuture<Object> ask(final Object message) {
+    public CompletableFuture<MessageEnvelope> ask(final Object message) {
         return ask(message, ActorRef.NO_SENDER);
     }
 
-    public abstract CompletableFuture<Object> ask(final Object message, final ActorRef sender);
+    public abstract CompletableFuture<MessageEnvelope> ask(final Object message, final ActorRef sender);
 
     ActorShell getShell() {
         return this.shell;
