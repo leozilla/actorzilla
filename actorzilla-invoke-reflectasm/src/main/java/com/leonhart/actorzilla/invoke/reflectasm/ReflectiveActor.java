@@ -7,11 +7,10 @@ import com.leonhart.actorzilla.core.MessageContext;
  * Created by david on 11.03.2017.
  */
 public abstract class ReflectiveActor extends Actor {
-
     private final ReflectAsmActorMetadata metadata;
 
     public ReflectiveActor() {
-        this.metadata = new ReflectAsmActorMetadata(this);
+        this.metadata = ReflectAsmActorMetadata.forActor(this);
     }
 
     public ReflectAsmActorMetadata getMetadata() {
